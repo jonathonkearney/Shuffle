@@ -489,7 +489,8 @@ img {
 <body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/5.2.1/shuffle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/5.2.3/shuffle.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/5.2.1/shuffle.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.1/fuse.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.5/lazysizes-umd.min.js"></script>
@@ -514,7 +515,7 @@ img {
 		<div class="searchMenu">
 			<div>
 				<p id="categoryText" >Category</p>
-				<p id="tagText" >Tag</p>
+				<p id="tagText" >Sub-Category</p>
 			</div>
 			<select id="tagsSelectList" onchange="selector(this)"></select>
 			<select id="categorySelectList" onchange="selector(this)"></select>
@@ -680,7 +681,6 @@ img {
 		if(whichSelector.id == "categorySelectList"){
 			
 			var currentTag = document.getElementById("tagsSelectList").value;
-			console.log(currentTag);
 			scrapeTags();
 			createTagsSelector();
 			
@@ -851,7 +851,6 @@ img {
 	
 	function createTagsSelector(){
 		
-		console.log(tagSet);
 		
 		removeOptions(document.getElementById('tagsSelectList'));
 		
@@ -860,7 +859,6 @@ img {
 		theOptions.sort();
 		theOptions.unshift("All"); //add an empty option to start it off with
 		
-		console.log(theOptions);
 		
 		//create the options and add them to the selector
 		var selector = document.getElementById('tagsSelectList');
@@ -892,7 +890,6 @@ img {
 		for(var i = 0; i < data.length - 1; i++){
 			categorySet.add(data[i].category);
 		}
-		console.log(categorySet);
 	}
 	
 	function setToArray(set) {
