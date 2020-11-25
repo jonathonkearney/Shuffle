@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>CAB</title>
+
+<style>
+
+body {
+	background-color: #ced5dca1; 
+	background: rgb(224,228,232);  /* for IE */
+	margin: 0px;
+}
+
+.topSection{
+	background-color: white;
+}
+
+.contactMenu{
+	text-align: right;
+	font-family: 'Montserrat', sans-serif;
+	position: absolute;
+	right: 8.6vw;
+	text-decoration-line: none;
+	font-size: 0.8vw;
+	width: 29vw;
+	height: 10vw;
+	margin-top:1.5vw;
+}
+
+button{
+	background-color: #4384a2fa;
+	background: rgb(71,134,164);  /* for IE */
+	color: white;
+	border: solid;
+	border-width: 0;
+	border-radius: 0.2vw;
+}
+
+#curated{
+	position: absolute;
+	margin: 0;
+	right: 0;
+	top: 0;
+}
+
+#cantFind{
+	position: absolute;
+	width: 15vw;
+	font-size: 1.5vw;
+	margin: 0;
+	left: 0;
+	bottom: 0;
+	
+}
+
+#categoryText{
+	position: absolute;
+	width: 15vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.5vw;;
+	font-weight: 700;
+	margin-left: 8.1%;
+	bottom: 0;
+	top: 0;
+}
+#tagText{
+	position: absolute;
+	width: 15vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.5vw;
+	font-weight: 700;
+	margin-left: 30.1%;
+	bottom: 0;
+	top: 0;
+}
+
+#contactUsBtn{
+	position: absolute;
+	z-index: 2;
+	height: 3.2vw;
+	width: 13vw;
+	font-size: 1.3vw;
+	text-align: center;
+	font-weight: 700;
+	color: white;
+	bottom:0.1vw;
+	right:0;
+}
+
+a:hover IMG{
+  opacity:0.6;
+}
+
+
+.header{
+	margin-left:8vw;
+	position: relative;
+	height:15.5vw;
+	width: 30%;
+	padding-top:1.8vw;
+}
+
+.searchMenu{
+	position: relative;
+	height:3vw;
+	padding-top: 2.5vw;
+	padding-bottom: 4vw;
+	width: 100%;
+}
+
+
+.title{
+	font-size: 4vw;
+	color: black;
+	font-family: 'Montserrat', sans-serif;
+	margin-top:0;
+}
+
+.filtersMenu{
+	height:2vw;
+	margin-top:0.8vw;
+}
+
+#filtersTitle{
+	font-family: 'Montserrat', sans-serif;
+	z-index: 2;
+	font-size: 1.3vw;
+	margin-left:8vw;
+	margin-bottom:0;
+	margin-top:1.2vw;
+}
+
+.container {
+	width: 93vw;
+	margin: auto;
+}
+
+.my-shuffle-container{
+	width: 83vw;
+	float: left;
+	margin-left:8vw;
+	margin-right:8vw;
+	margin-bottom: 1vw;
+}
+
+figure {
+	margin: 0;
+	padding: 0;
+}
+
+.hasImage{
+	/* The height of the entire tile */
+	height: 30vw; 
+}
+
+.noImage .textDiv{
+	position: relative;
+	padding: 4%;
+	background-color: rgb(1,139,150);
+	/* border-style: solid; */
+	/* border-color: rgb(1,139,150); */
+}
+
+.noImage p{
+	padding: 0%;
+	color: white;
+}
+
+.aspect {
+	width: 100%;
+	overflow: hidden;
+	border-radius: 0.2vw;
+	padding-bottom: 12%;
+	background-color: white; 
+}
+
+.noImage{
+	padding-bottom:0%;
+}
+
+.imageDiv {
+	position: absolute;
+	height: 50%;
+	padding-top:0%;
+	top:0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index:-2;
+}
+
+img {
+	position: absolute;
+	/* padding: 1vw 2.4vw 0 1vw; */
+	padding: 0;
+	top: 0;
+	max-width: 105%;
+	object-fit: cover;
+	max-height: 100%;
+	width: 105%;
+	z-index: -2;
+}
+
+.textDiv{
+	position: absolute;
+	height:50%;
+	width: 100%;
+	left: 0;
+	top: 50%;
+	right: 0;
+	text-align: left;
+	font-family: 'Overpass', sans-serif; /* was font-family: 'Montserrat', sans-serif; */
+	font-size: 1.2vw;
+	z-index:2;
+	color: black;
+	display:table;
+}
+
+.textDiv p{
+	padding-left: 1vw;
+	padding-right: 1vw;
+	margin-top:auto;
+	margin-bottom:auto;
+	display:block;
+	padding-left: 1vw;
+	padding-bottom:0.8vw;
+}
+
+.titleText{
+	position: absolute;
+	text-align: center;
+	font-weight: bold;
+	padding-top: 2vw;
+	font-size:1vw;
+	left: 5%;
+	width: 90%;
+}
+
+.description{
+	position: absolute;
+	top:41%;
+	left:0;
+	font-size: 0.9vw;
+	text-align: center;
+}
+
+.line{
+	position: absolute;
+	width: 90%;
+	height: 0;
+	bottom: 26%;
+	left: 5%;
+	border-bottom-width: 0.1vw;
+	border-bottom-style: solid;
+	border-bottom-color: lightgray;
+}
+
+.dateText{
+	position: absolute;
+	font-size: 1vw;
+	right: 0;
+	bottom: 0;
+	padding: 0 1.4vw 0.7vw 0.3vw !important;
+	color: rgb(33,119,158);
+}
+
+.relatedButton{
+	position: absolute;
+	color: white;
+	font-size: 0.8vw;
+	right: 5vw;
+	bottom: 0.4vw;
+	height: 2.2vw;
+	width: 4.6vw;
+	padding: 0vw 0vw 0vw 0vw !important;
+	color: white;
+}
+
+.relatedButton:hover{
+	opacity:0.5;
+}
+
+.coverageText{
+	position: absolute;
+	font-size: 1vw;
+	left: 1.1vw;
+	bottom: 0;
+	padding: 0 2vw 0.7vw 0.3vw !important;
+    color: rgb(33,119,158);
+}
+
+.categoryText{
+	text-align:center;
+	text-decoration: underline;
+	font-size: 1.2vw;
+	padding-top: 0.4vw;
+    color: black;
+	opacity: 0.5;
+}
+
+.coverageDiv p{
+	padding: 4%;
+	padding-bottom: 1%;
+}
+
+/* Bootstrap-style columns */
+.column {
+	float: left;
+	min-height: 1px;
+	width: 24.1%;
+	height: 23vw;
+	padding-left: 0px;
+	padding-right: 0px;
+	/* Space between tiles */
+	margin-top: 1vw;
+}
+
+.my-sizer-element { 
+	 /* This was width: 8.33333%; */
+	 margin-left: 0.8vw;
+}
+
+/* default styles so shuffle doesn't have to set them (it will if they're missing) */
+.my-shuffle-container {
+	position: relative;
+	overflow: hidden;
+}
+
+}
+
+.shadow {
+	/* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
+}
+
+/* Small reset */
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+#myInput {
+	position: absolute;
+	height: 2.3vw;	
+	width: 21%;
+	clear: both;
+	margin-left:8vw;
+	margin-right:8vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1vw;
+	text-align: center;
+	opacity:1;
+	border-radius: 0.2vw;
+	outline-color: gray;
+	outline-width: 0.1vw;
+	font-weight: 700;
+}
+
+#categorySelectList{
+	height: 2.3vw;	
+	position: absolute;
+	width: 21%;
+	clear: both;
+	margin-left: 8%;
+	margin-right:8vw;
+	margin-top: 1vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1vw;
+	text-align: center;
+	opacity:1;
+	outline-color: gray;
+	border-radius: 0.2vw;
+	font-weight: 700;
+}
+
+#tagsSelectList{
+	height: 2.3vw;	
+	position: absolute;
+	width: 21%;
+	clear: both;
+	margin-left: 30%;
+	margin-right:8vw;
+	margin-top: 1vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1vw;
+	text-align: center;
+	opacity:1;
+	outline-color: gray;
+	border-radius: 0.2vw;
+	font-weight: 700;
+}
+
+#resetBtn{
+	height: 2.3vw;		
+	position: absolute;
+	width: 9%;
+	clear: both;
+	margin-left:51.8%;
+	margin-right:8vw;
+	margin-top:1vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1vw;
+	text-align: center;
+	opacity:1;
+	font-weight: 700;
+}
+
+#filterByText{
+	height: 2.3vw;		
+	position: absolute;
+	width: 9%;
+	clear: both;
+	right:19.5vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1vw;
+	text-align: center;
+	font-weight: 700;
+	top: 0.9vw;
+	margin-top: 3vw;
+}
+
+#dateButton{
+	color: black;
+	height: 2.3vw;		
+	position: absolute;
+	width: 6vw;
+	clear: both;
+	right:8.6vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1vw;
+	text-align: center;
+	opacity:1;
+	font-weight: 700;
+	margin-top: 1vw;
+}
+
+#titleButton{
+	height: 2.3vw;		
+	position: absolute;
+	width: 6vw;
+	clear: both;
+	right:15.1vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1vw;
+	text-align: center;
+	opacity:1;
+	font-weight: 700;
+	margin-top: 1vw;
+}
+
+.corner-ribbon{
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  line-height: 50px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.corner-ribbon.sticky{
+  position: fixed;
+}
+
+.corner-ribbon.shadow{
+  box-shadow: 0 0 3px rgba(0,0,0,.3);
+}
+
+.corner-ribbon.top-left{
+  top: 25px;
+  left: -50px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  font-size: 1.8vw;
+}
+
+</style>
+</head>
+
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/5.2.1/shuffle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.1/fuse.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.5/lazysizes-umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.6.3/papaparse.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Overpass&display=swap" rel="stylesheet">
+
+<div class="corner-ribbon top-left sticky red shadow beta">BETA</div>
+	
+<div class="canvasWrapper">	
+	<div class="topSection">
+		<div class="contactMenu">
+			<p id="curated">Curated <strong>by: <br> Research and Analytics</strong></p>
+			<p id="cantFind" >Can't find what you are looking for?</p>
+			<a href="mailto:CustomerResearch@nzta.govt.nz"><button id="contactUsBtn" class = "shadow">Contact Us</button></a>
+		</div>
+		<div class="header">
+			<p class="title"><strong>Customer Attitudes</strong> and <strong>Behaviours</strong></p>
+		</div>
+		<div class="searchMenu">
+			<div>
+				<p id="categoryText" >Category</p>
+				<p id="tagText" >Tag</p>
+			</div>
+			<select id="tagsSelectList" onchange="selector(this)"></select>
+			<select id="categorySelectList" onchange="selector(this)"></select>
+			<button id="resetBtn" class = "shadow" onclick="resetBtn()">Reset</button>
+			<p id="filterByText" > Sort By:</p>
+			<button id="dateButton" class = "shadow" onclick="sortByTheDate()">Date</button>
+			<button id="titleButton" class = "shadow" onclick="sortByTheTitle()">Title</button>
+		</div>
+	</div>
+	<div id="container" class="row my-shuffle-container">
+		<div class="column my-sizer-element">
+		</div>
+	</div>
+</div>
+<script>
+	
+	var animationSpeed = 750; 
+	var data = []; // this is where the parsed csv file will live
+	
+	let tagSet = new Set(); // this is where you could put all the tags if you scraped the data
+	let categorySet = new Set();
+	
+	var filters = [];
+	
+	
+	//****** SHUFFLE ******\\
+	
+	var Shuffle = window.Shuffle;
+	var element = document.querySelector('.my-shuffle-container');
+	var sizer = element.querySelector('.my-sizer-element');
+
+	var shuffleInstance = new Shuffle(element, {
+		itemSelector: '.shuffle-item',
+		sizer: sizer,
+		speed: animationSpeed,
+		filterMode: Shuffle.FilterMode.ALL,
+		gutterWidth: 15,
+	});
+	
+	//****** SORTING ******\\
+	
+	function sortByTheDate(){ 
+		sortOptions = {by: sortByDate,reverse: true,}
+		shuffleInstance.sort(sortOptions);
+		
+		document.getElementById('dateButton').style.color='black';
+		document.getElementById('titleButton').style.color='white';
+	}
+	
+	function sortByTheTitle(){ 
+		sortOptions = {by: sortByTitle, reverse: false,}
+		shuffleInstance.sort(sortOptions);
+		
+		document.getElementById('dateButton').style.color='white';
+		document.getElementById('dateButton').style.color='white';
+		document.getElementById('titleButton').style.color='black';
+	}
+	
+	function sortByDate(element){
+		return element.getAttribute('date');
+	}
+	
+	function sortByTitle(element) {
+		return element.getAttribute('data-title').toLowerCase();
+	}
+	var sortOptions = {by: sortByDate,reverse: true,}
+	
+	shuffleInstance.sort(sortOptions);
+	
+	//****** PARSING ******\\
+	
+	parseData("newData.csv", main); // This is asynchronous so other stuff will continue before this function completes?
+	
+	function main(theData) { //Anything that uses the data must be done here? to make sure it happens AFTER the data is loaded? 
+		data = theData;
+		
+		appendBoxes();
+		
+		scrapeCategories();
+		scrapeTags();
+		
+		createCategorySelector();
+		createTagsSelector();
+
+	}
+	
+	function parseData(url, callBack) {
+		Papa.parse(url, {
+			download: true,
+			header: true,
+			dynamicTyping: true,
+			complete: function(results) {
+				callBack(results.data);
+			}
+		});
+	}
+	
+	//****** BUTTONS ******\\
+	
+	function resetBtn(){
+		document.getElementById('categorySelectList').value = "All"
+		document.getElementById('tagsSelectList').value = "All"
+		
+		filters = [];
+		shuffleInstance.filter(filters); 
+		scrapeTags();
+		createTagsSelector();
+		shuffleInstance.layout(); // reset the layout, so it doesnt play up? maybe
+	}
+	
+	function selector(whichSelector){
+	
+		var categorySelectionValue = document.getElementById("categorySelectList");
+		categorySelectionValue = categorySelectionValue.value.toLowerCase();
+		
+		var tagsSelectionValue = document.getElementById("tagsSelectList");
+		tagsSelectionValue = tagsSelectionValue.value.toLowerCase();
+		
+		if(document.getElementById('categorySelectList').value != "All" && document.getElementById('tagsSelectList').value != "All"){ //Category+Tag
+			
+			shuffleInstance.filter(function (element) {
+				elementCategory = element.getAttribute('data-category').toLowerCase();
+				elementTags = element.getAttribute('data-groups').toLowerCase();
+				if(elementCategory == categorySelectionValue && elementTags.includes(tagsSelectionValue)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			});
+			
+		}
+		else if(document.getElementById('categorySelectList').value != "All" && document.getElementById('tagsSelectList').value == "All"){ //Just Category
+			
+			shuffleInstance.filter(function (element) {
+				elementCategory = element.getAttribute('data-category').toLowerCase();
+				if(elementCategory == categorySelectionValue){
+					return true;
+				}
+				else{
+					return false;
+				}
+			});
+		}
+		else if(document.getElementById('categorySelectList').value == "All" && document.getElementById('tagsSelectList').value != "All"){ //Just Tag
+			
+			shuffleInstance.filter(function (element) {
+				elementTags = element.getAttribute('data-groups').toLowerCase();
+				if(elementTags.includes(tagsSelectionValue)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			});	
+		}
+		else if(document.getElementById('categorySelectList').value == "All" && document.getElementById('tagsSelectList').value == "All"){ //Neither
+			
+			filters = [];
+			shuffleInstance.filter(filters);
+		}
+		
+		if(whichSelector.id == "categorySelectList"){
+			
+			var currentTag = document.getElementById("tagsSelectList").value;
+			console.log(currentTag);
+			scrapeTags();
+			createTagsSelector();
+			
+			if(tagSet.size == 0){
+				var TSL = document.getElementById("tagsSelectList");
+				var option = document.createElement("option");
+				option.text = currentTag;
+				TSL.add(option);
+				document.getElementById("tagsSelectList").value = currentTag;
+			}
+			else{
+				document.getElementById("tagsSelectList").value = currentTag;
+			}
+		}
+		
+	}
+	
+	//****** ADD IN BOXES ******\\
+	
+	//add the boxes to the shuffleInstance
+	function appendBoxes() {
+	
+		var elements = generateBoxesMk2();
+
+		elements.forEach(function (element) {
+			this.element.appendChild(element);
+		}, this);
+
+		shuffleInstance.add(elements);
+		shuffleInstance.update();
+	};
+	
+	function generateBoxesMk2(){
+		
+		
+		var items = [];
+
+		for (var i = 0; i < data.length; i++) { 
+			
+			if (data[i].title == null) { // skip this iteration of a loop if it is a blank row
+				continue;
+			}
+			
+			//add outside figure/box
+			var box = document.createElement('figure'); 
+			box.className = "column aspect";
+			box.setAttribute("data-groups", data[i].groups);
+			box.setAttribute("data-category", data[i].category);			
+			box.setAttribute("data-title", data[i].title);
+			box.setAttribute("date", data[i].date);
+			
+			//add the anchor
+			var anchor = document.createElement('a');
+			anchor.href = data[i].link;
+			anchor.setAttribute("target", "_blank")
+			anchor.setAttribute('style', 'text-decoration:none;')
+			box.appendChild(anchor);
+			
+			//add image (if one exists)
+			if(data[i].image !== null){
+				var imgDiv = document.createElement('div');
+				imgDiv.className = "imageDiv";
+				var img = document.createElement('IMG');
+				img.setAttribute("src", "Images/" + data[i].image);
+				img.className = "lazyload";
+				imgDiv.appendChild(img);
+				anchor.appendChild(imgDiv);
+				
+				//if it has an image then give box hasImage class
+				box.className = "column aspect hasImage";
+			}
+			else{ // if it has no image then give box noImage class
+				box.className = "column aspect noImage";
+			}
+			
+			//add textDiv
+			var textDiv = document.createElement('div');
+			textDiv.className = "textDiv";
+			anchor.appendChild(textDiv);
+			
+			//add title
+			var title = document.createElement('P');
+			title.className = "titleText";
+			var titleText = document.createTextNode(data[i].title);
+			title.appendChild(titleText);
+			textDiv.appendChild(title);
+			
+			//if it has an image...
+			if(data[i].image !== null){
+				//add DescDiv 
+				var description = document.createElement('P');
+				description.className = "description";
+				var descText = document.createTextNode(data[i].description);
+				description.appendChild(descText);
+				textDiv.appendChild(description);
+				
+				
+				//add line.
+				var line = document.createElement('div');
+				line.className = "line";
+				textDiv.appendChild(line);
+				
+				
+				//add date
+				var date = document.createElement('P');
+				date.className = "dateText";
+				var dateText = document.createTextNode(data[i].date);
+				date.appendChild(dateText);
+				textDiv.appendChild(date);
+				
+				
+				//add coverage
+				var coverage = document.createElement('P');
+				coverage.className = "coverageText";
+				var coverageText = document.createTextNode(data[i].coverage);
+				coverage.appendChild(coverageText);
+				textDiv.appendChild(coverage);
+				
+				//add category
+				var category = document.createElement('P');
+				category.className = "categoryText";
+				var categoryText = document.createTextNode(data[i].category);
+				category.appendChild(categoryText);
+				textDiv.appendChild(category);
+				
+				if(data[i].related !== null){
+					//add the anchor
+					var buttonAnchor = document.createElement('a');
+					buttonAnchor.href = data[i].related;
+					buttonAnchor.setAttribute("target", "_blank");
+					buttonAnchor.setAttribute('style', 'text-decoration:none;');
+					textDiv.appendChild(buttonAnchor);
+					
+					//add related resources link to the buttonAnchor
+					var related = document.createElement('BUTTON');
+					related.className = "relatedButton";
+					var relatedText = document.createTextNode("Related Resources"); 
+					related.appendChild(relatedText);
+					buttonAnchor.appendChild(related);
+				}
+			}
+			
+			items.push(box); 
+		}
+		return items;
+	}
+	
+	//****** CREATE SELECT LIST ******\\
+	
+	function createCategorySelector(){
+		
+		var theOptions = setToArray(categorySet);
+		
+		theOptions.sort();
+		theOptions.unshift("All"); //add an empty option to start it off with
+		
+		//create the options and add them to the selector
+		var selector = document.getElementById('categorySelectList');
+		for (var i = 0; i < theOptions.length; i++) {
+			var option = document.createElement("option");
+			option.value = theOptions[i];
+			option.text = theOptions[i];
+			option.id = theOptions[i];
+			option.setAttribute('data-value',theOptions[i]);
+			selector.appendChild(option);
+		}
+	}
+	
+	function createTagsSelector(){
+		
+		console.log(tagSet);
+		
+		removeOptions(document.getElementById('tagsSelectList'));
+		
+		var theOptions = setToArray(tagSet);
+		
+		theOptions.sort();
+		theOptions.unshift("All"); //add an empty option to start it off with
+		
+		console.log(theOptions);
+		
+		//create the options and add them to the selector
+		var selector = document.getElementById('tagsSelectList');
+		for (var i = 0; i < theOptions.length; i++) {
+			var option = document.createElement("option");
+			option.value = theOptions[i];
+			option.text = theOptions[i];
+			option.id = theOptions[i];
+			option.setAttribute('data-value',theOptions[i]);
+			selector.appendChild(option);
+		}
+	}
+	
+	function scrapeTags(){
+		
+		tagSet.clear();
+		
+		var container = document.querySelectorAll(".shuffle-item--visible");
+		for(var i = 0; i < container.length; i++){
+			var tags = JSON.parse(container[i].getAttribute('data-groups'));
+			for(var j = 0; j < tags.length; j++){
+				tagSet.add(capitalizeFirstLetter(tags[j]));
+			}
+		}
+	}
+	
+	function scrapeCategories(){
+		
+		for(var i = 0; i < data.length - 1; i++){
+			categorySet.add(data[i].category);
+		}
+		console.log(categorySet);
+	}
+	
+	function setToArray(set) {
+		var it = set.values(),
+			ar = [],
+			ele = it.next();
+
+		while(!ele.done) {
+			ar.push(ele.value);
+			ele = it.next();
+		}
+
+		return ar;
+	}
+	
+	function capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+	
+	function removeOptions(selectElement) {
+	   var i, L = selectElement.options.length - 1;
+	   for(i = L; i >= 0; i--) {
+		  selectElement.remove(i);
+	   }
+	}
+	
+</script>
+
+</body>
+</html>
