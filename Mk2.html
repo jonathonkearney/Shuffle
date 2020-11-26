@@ -74,7 +74,18 @@ button{
 	font-family: 'Montserrat', sans-serif;
 	font-size: 1.5vw;
 	font-weight: 700;
-	margin-left: 30.1%;
+	margin-left: 24.1%;
+	bottom: 0;
+	top: 0;
+}
+
+#locationText{
+	position: absolute;
+	width: 15vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.5vw;
+	font-weight: 700;
+	margin-left: 40.1%;
 	bottom: 0;
 	top: 0;
 }
@@ -364,7 +375,7 @@ img {
 #categorySelectList{
 	height: 2.3vw;	
 	position: absolute;
-	width: 21%;
+	width: 15%;
 	clear: both;
 	margin-left: 8%;
 	margin-right:8vw;
@@ -381,9 +392,26 @@ img {
 #tagsSelectList{
 	height: 2.3vw;	
 	position: absolute;
-	width: 21%;
+	width: 15%;
 	clear: both;
-	margin-left: 30%;
+	margin-left: 24%;
+	margin-right:8vw;
+	margin-top: 1vw;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.1vw;
+	text-align: center;
+	opacity:1;
+	outline-color: gray;
+	border-radius: 0.2vw;
+	font-weight: 700;
+}
+
+#locationSelectList{
+	height: 2.3vw;	
+	position: absolute;
+	width: 15%;
+	clear: both;
+	margin-left: 40%;
 	margin-right:8vw;
 	margin-top: 1vw;
 	font-family: 'Montserrat', sans-serif;
@@ -400,7 +428,7 @@ img {
 	position: absolute;
 	width: 9%;
 	clear: both;
-	margin-left:51.8%;
+	margin-left:56%;
 	margin-right:8vw;
 	margin-top:1vw;
 	font-family: 'Montserrat', sans-serif;
@@ -516,9 +544,11 @@ img {
 			<div>
 				<p id="categoryText" >Category</p>
 				<p id="tagText" >Sub-Category</p>
+				<p id="locationText" >Location</p>
 			</div>
 			<select id="tagsSelectList" onchange="selector(this)"></select>
 			<select id="categorySelectList" onchange="selector(this)"></select>
+			<select id="locationSelectList" onchange="selector(this)"></select>
 			<button id="resetBtn" class = "shadow" onclick="resetBtn()">Reset</button>
 			<p id="filterByText" > Sort By:</p>
 			<button id="dateButton" class = "shadow" onclick="sortByTheDate()">Date</button>
@@ -537,6 +567,7 @@ img {
 	
 	let tagSet = new Set(); // this is where you could put all the tags if you scraped the data
 	let categorySet = new Set();
+	let locationSet = new Set();
 	
 	var filters = [];
 	
@@ -596,9 +627,11 @@ img {
 		
 		scrapeCategories();
 		scrapeTags();
+		scrapeLocation();
 		
 		createCategorySelector();
 		createTagsSelector();
+		createLocationSelector();
 
 	}
 	
@@ -616,8 +649,9 @@ img {
 	//****** BUTTONS ******\\
 	
 	function resetBtn(){
-		document.getElementById('categorySelectList').value = "All"
-		document.getElementById('tagsSelectList').value = "All"
+		document.getElementById('categorySelectList').value = "All";
+		document.getElementById('tagsSelectList').value = "All";
+		document.getElementById('locationSelectList').value = "All";
 		
 		filters = [];
 		shuffleInstance.filter(filters); 
@@ -634,6 +668,104 @@ img {
 		var tagsSelectionValue = document.getElementById("tagsSelectList");
 		tagsSelectionValue = tagsSelectionValue.value.toLowerCase();
 		
+		var locationSelectionValue = document.getElementById("locationSelectList");
+		locationSelectionValue = locationSelectionValue.value.toLowerCase();
+		
+		if(document.getElementById('categorySelectList').value != "All"){
+			if(document.getElementById('tagsSelectList').value != "All"){
+				if(document.getElementById('locationSelectList').value != "All"){//category+tag+location
+					shuffleInstance.filter(function (element) {
+						elementCategory = element.getAttribute('data-category').toLowerCase();
+						elementTags = element.getAttribute('data-groups').toLowerCase();
+						elementLocation = element.getAttribute('data-coverage').toLowerCase();
+						if(elementCategory == categorySelectionValue && elementTags.includes(tagsSelectionValue) && elementLocation == locationSelectionValue){
+							return true;
+						}
+						else{
+							return false;
+						}
+					});
+				}
+				else{//category+tag	
+					shuffleInstance.filter(function (element) {
+						elementCategory = element.getAttribute('data-category').toLowerCase();
+						elementTags = element.getAttribute('data-groups').toLowerCase();
+						if(elementCategory == categorySelectionValue && elementTags.includes(tagsSelectionValue)){
+							return true;
+						}
+						else{
+							return false;
+						}
+					});
+				}
+			}
+			else if(document.getElementById('locationSelectList').value != "All"){//category+location
+				shuffleInstance.filter(function (element) {
+					elementCategory = element.getAttribute('data-category').toLowerCase();
+					elementLocation = element.getAttribute('data-coverage').toLowerCase();
+					if(elementCategory == categorySelectionValue && elementLocation == locationSelectionValue){
+						return true;
+					}
+					else{
+						return false;
+					}
+				});
+			}
+			else{//category
+				shuffleInstance.filter(function (element) {
+					elementCategory = element.getAttribute('data-category').toLowerCase();
+					if(elementCategory == categorySelectionValue){
+						return true;
+					}
+					else{
+						return false;
+					}
+				});
+			}
+		}
+		else if(document.getElementById('tagsSelectList').value != "All"){
+			if(document.getElementById('locationSelectList').value != "All"){//tag+location
+				shuffleInstance.filter(function (element) {
+					elementTags = element.getAttribute('data-groups').toLowerCase();
+					elementLocation = element.getAttribute('data-coverage').toLowerCase();
+					if(elementTags.includes(tagsSelectionValue) && elementLocation == locationSelectionValue){
+						return true;
+					}
+					else{
+						return false;
+					}
+				});
+			}
+			else{//tag
+				shuffleInstance.filter(function (element) {
+					elementTags = element.getAttribute('data-groups').toLowerCase();
+					if(elementTags.includes(tagsSelectionValue)){
+						return true;
+					}
+					else{
+						return false;
+					}
+				});	
+			}
+		}
+		else if(document.getElementById('locationSelectList').value != "All"){//location
+			shuffleInstance.filter(function (element) {
+				elementLocation = element.getAttribute('data-coverage').toLowerCase();
+				if(elementLocation == locationSelectionValue){
+					return true;
+				}
+				else{
+					return false;
+				}
+			});
+		}
+		else{//none
+			filters = [];
+			shuffleInstance.filter(filters);
+		}
+		
+		
+		/*
 		if(document.getElementById('categorySelectList').value != "All" && document.getElementById('tagsSelectList').value != "All"){ //Category+Tag
 			
 			shuffleInstance.filter(function (element) {
@@ -677,6 +809,8 @@ img {
 			filters = [];
 			shuffleInstance.filter(filters);
 		}
+		*/
+		
 		
 		if(whichSelector.id == "categorySelectList"){
 			
@@ -728,7 +862,8 @@ img {
 			var box = document.createElement('figure'); 
 			box.className = "column aspect";
 			box.setAttribute("data-groups", data[i].groups);
-			box.setAttribute("data-category", data[i].category);			
+			box.setAttribute("data-category", data[i].category);
+			box.setAttribute("data-coverage", data[i].coverage);
 			box.setAttribute("data-title", data[i].title);
 			box.setAttribute("date", data[i].date);
 			
@@ -872,6 +1007,25 @@ img {
 		}
 	}
 	
+	function createLocationSelector(){
+		
+		var theOptions = setToArray(locationSet);
+		
+		theOptions.sort();
+		theOptions.unshift("All"); //add an empty option to start it off with
+		
+		//create the options and add them to the selector
+		var selector = document.getElementById('locationSelectList');
+		for (var i = 0; i < theOptions.length; i++) {
+			var option = document.createElement("option");
+			option.value = theOptions[i];
+			option.text = theOptions[i];
+			option.id = theOptions[i];
+			option.setAttribute('data-value',theOptions[i]);
+			selector.appendChild(option);
+		}
+	}
+	
 	function scrapeTags(){
 		
 		tagSet.clear();
@@ -889,6 +1043,15 @@ img {
 		
 		for(var i = 0; i < data.length - 1; i++){
 			categorySet.add(data[i].category);
+		}
+	}
+	
+	function scrapeLocation(){
+		
+		for(var i = 0; i < data.length - 1; i++){
+			if(data[i].coverage != "All of NZ"){
+				locationSet.add(data[i].coverage);
+			}
 		}
 	}
 	
