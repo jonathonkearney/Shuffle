@@ -1045,6 +1045,8 @@ img {
 		
 		var str = theTags.replace(/\s*,\s*/g, ",");
 		
+		str = str.trim();
+		
 		var fixedTags = JSON.stringify(str.split(',')).toLowerCase();
 	
 		return fixedTags;
