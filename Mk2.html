@@ -11,8 +11,9 @@
 <style>
 
 body {
-	background-color: #ced5dca1; 
+	background-color: #ced5dca1;
 	background: rgb(224,228,232);  /* for IE */
+	background-image: linear-gradient(225deg, rgb(239 233 233 / 37%), rgb(136 177 197));
 	margin: 0px;
 }
 
@@ -770,53 +771,6 @@ img {
 		}
 		
 		
-		/*
-		if(document.getElementById('categorySelectList').value != "All" && document.getElementById('tagsSelectList').value != "All"){ //Category+Tag
-			
-			shuffleInstance.filter(function (element) {
-				elementCategory = element.getAttribute('data-category').toLowerCase();
-				elementTags = element.getAttribute('data-groups').toLowerCase();
-				if(elementCategory == categorySelectionValue && elementTags.includes(tagsSelectionValue)){
-					return true;
-				}
-				else{
-					return false;
-				}
-			});
-			
-		}
-		else if(document.getElementById('categorySelectList').value != "All" && document.getElementById('tagsSelectList').value == "All"){ //Just Category
-			
-			shuffleInstance.filter(function (element) {
-				elementCategory = element.getAttribute('data-category').toLowerCase();
-				if(elementCategory == categorySelectionValue){
-					return true;
-				}
-				else{
-					return false;
-				}
-			});
-		}
-		else if(document.getElementById('categorySelectList').value == "All" && document.getElementById('tagsSelectList').value != "All"){ //Just Tag
-			
-			shuffleInstance.filter(function (element) {
-				elementTags = element.getAttribute('data-groups').toLowerCase();
-				if(elementTags.includes(tagsSelectionValue)){
-					return true;
-				}
-				else{
-					return false;
-				}
-			});	
-		}
-		else if(document.getElementById('categorySelectList').value == "All" && document.getElementById('tagsSelectList').value == "All"){ //Neither
-			
-			filters = [];
-			shuffleInstance.filter(filters);
-		}
-		*/
-		
-		
 		if(whichSelector.id == "categorySelectList"){
 			
 			var currentTag = document.getElementById("tagsSelectList").value;
@@ -866,7 +820,10 @@ img {
 			//add outside figure/box
 			var box = document.createElement('figure'); 
 			box.className = "column aspect";
-			box.setAttribute("data-groups", data[i].groups);
+			
+			//box.setAttribute("data-groups", data[i].groups); //old one with [] and "'s
+			box.setAttribute("data-groups", convertTags(data[i].groups)); 
+			
 			box.setAttribute("data-category", data[i].category);
 			box.setAttribute("data-coverage", data[i].coverage);
 			box.setAttribute("data-title", data[i].title);
@@ -1082,6 +1039,15 @@ img {
 	   for(i = L; i >= 0; i--) {
 		  selectElement.remove(i);
 	   }
+	}
+	
+	function convertTags(theTags){
+		
+		var str = theTags.replace(/\s*,\s*/g, ",");
+		
+		var fixedTags = JSON.stringify(str.split(',')).toLowerCase();
+	
+		return fixedTags;
 	}
 	
 </script>
